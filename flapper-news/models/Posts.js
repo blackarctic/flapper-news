@@ -8,4 +8,9 @@ var PostSchema = new mongoose.Schema({
 	comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 });
 
+PostSchema.methods.upvote = function(callback_func) {
+	this.upvotes += 1;
+	this.save(callback_func);
+}
+
 mongoose.model('Post', PostSchema);
