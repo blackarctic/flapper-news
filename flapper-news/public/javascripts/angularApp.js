@@ -26,7 +26,7 @@ app.config([
 						return posts.get($stateParams.id);
 					}]
 				}
-			});
+			})
 			.state('login', {
 				url: '/login',
 				templateUrl: '.login.html',
@@ -36,7 +36,8 @@ app.config([
 						$state.go('home');
 					}
 				}]
-			}.state('register', {
+			})
+			.state('register', {
 				url: '/register',
 				templateUrl: '.register.html',
 				controller: 'AuthCtrl',
@@ -45,7 +46,7 @@ app.config([
 						$state.go('home');
 					}
 				}]
-			};
+			});
 
 		$urlRouterProvider.otherwise('home');
 
@@ -200,7 +201,7 @@ function($scope, posts, post) {
 app.controller('AuthCtrl', [
 	'$scope',
 	'$state',
-	'$auth',
+	'auth',
 	function($scope, $state, auth) {
 		$scope.user = {};
 
@@ -219,8 +220,18 @@ app.controller('AuthCtrl', [
 				$state.go('home');
 			});
 		};
-	};
+	}
 
+]);
+
+app.controller('NavCtrl', [
+	'$scope',
+	'auth',
+	function($scope, auth) {
+		$scope.isLoggedIn = auth.isLoggedIn;
+		$scope.currentUser = auth.currentUser;
+		$scope.logOut = auth.logOut;
+	}
 ]);
 
 
